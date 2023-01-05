@@ -68,3 +68,36 @@ const tracker = () => {
         }
     });
 };
+
+// view departments
+const viewDepartments = () => {
+    db.query('SELECT * FROM departments', async function (err, results) {
+    const table = await cTable.getTable(results);
+    console.log(table);
+    tracker();
+});
+
+};
+
+// view roles
+const viewRoles = () => {
+db.query('SELECT * FROM roles LEFT JOIN departments ON roles.department_id = departments.id', async function (err, results) {
+    const table = await cTable.getTable(results);
+    console.log(table);
+    tracker();
+});   
+};
+
+// view employees
+const viewEmployees = () => {
+db.query("SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department_name AS department, roles.salary FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id;", async function (err, results) {
+    if(err){
+        console.log(err);
+        tracker();
+    } else {
+        const table = await cTable.getTable(results);
+        console.log(table);
+        tracker();
+    }
+});
+};
