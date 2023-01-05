@@ -14,5 +14,13 @@ VALUES  ("Sales Lead", 120000, 1)
         ("Sr. Engineer", 180000, 4)
         ("Jr. Engineer", 130000, 4)
         
-INSERT INTO
-VALUES
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
+VALUES  ("Brycen", "Towers", 1, null)
+        ("Cash", "Cruz", 2, 1)
+        ("Jefferson", "Taylor", 3, null)
+        ("Tiara", "Green", 4, 3)
+        ("Kenzie", "Razi" 5, null)
+        ("Logan", "Ruiz", 6,5)
+        ("Charly", "Asuma", 7, null)
+        ("Ricardo", "Ramos", 8, 7)
+        ("Cyrus", "Mc Leod", 8, 7)
