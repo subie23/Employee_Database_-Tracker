@@ -182,3 +182,103 @@ const viewRoleByManager = () => {
 const viewEmployeesByDepartment = () => {
 db.query('SELECT ')
 };
+
+const deleteDepartment = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department',
+            message: 'What is the id of the department you want to delete?'
+        }
+    ]).then((data) => {
+        
+        db.query('DELETE FROM departments WHERE id = ?', data.department, async (err, result) => {
+            if (err){
+                console.log(err);
+            } else {
+                await console.log('Successfully deleted department');
+                tracker();
+            }
+        })
+    })
+};
+
+const deleteEmployee = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'firstName',
+            message: 'What is the first name of the employee you want to delete?'
+        },
+        {
+            type: 'input',
+            name: 'lastName',
+            message: 'What is the last name of the employee you want to delete?'
+        }
+    ]).then((data) => {
+        db.query(`DELETE FROM employee WHERE first_name = ? AND last_name = ?`, [data.firstName, data.lastName], (err, result) => {
+            if (err){
+                console.log(err);
+            } else {
+                console.log('Successfully deleted employee');
+            }
+        })
+    }).then(() => tracker())
+};
+
+const deleteRole = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the id of the role you want to delete?'
+        }
+    ]).then((data) => {
+        
+        db.query('DELETE FROM roles WHERE id = ?', data.id, async (err, result) => {
+            if (err){
+                console.log(err);
+            } else {
+                await console.log('Successfully deleted role');
+                tracker();
+            }
+        })
+    })    
+}
+
+const updateEmployee = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'firstName',
+            message: 'What is the first name of the employee you want to update?'
+        },
+        {
+            type: 'input',
+            name: 'lastName',
+            message: 'What is the last name of the employee you want to update?'
+        },
+        {
+            type: 'input',
+            name: 'role',
+            message: 'What is the new role id for this emloyee?'
+        }
+    ]).then((data) => {
+        db.query('UPDATE employees SET role_id = ? WHERE first_name = ? AND last_name = ?', [data.role, data.firstName, data.lastName], async (err, result) => {
+            if(err){
+                console.log(err);
+            } else {
+                console.log('Successfully updated employee role')
+            }
+        })
+    }).then(() => tracker());
+};
+
+function quit() {
+        console.log("Goodbye!");
+        process.exit();
+      };
+
+
+tracker();
+
