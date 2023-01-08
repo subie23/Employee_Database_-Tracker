@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS employee_db;
-CREATE DATABASE employee_db;
+DROP DATABASE IF EXISTS emp_db_tracker;
+CREATE DATABASE emp_db_tracker;
 
-USE employee_db;
+USE emp_db_tracker;
 
 CREATE TABLE departments (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -11,11 +11,9 @@ CREATE TABLE departments (
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
-    salary DECIMAL NOT NULL,
+    salary DECIMAL,
     department_id INT,
-    FOREIGN KEY (department_id)
-    REFERENCES departments(id)
-    ON DELETE SET NULL
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL
 );
 
 CREATE TABLE employees (
@@ -27,7 +25,5 @@ CREATE TABLE employees (
     REFERENCES roles(id) 
     ON DELETE SET NULL
     manager_id INT,
-    FOREIGN KEY (manager_id)
-    REFERENCES employee(id)
-    ON DELETE SET NULL
+    FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );

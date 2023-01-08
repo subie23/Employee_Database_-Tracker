@@ -1,7 +1,8 @@
 // the packages and assigned variables
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const cTable = require('console.table')
+const cTable = require('console.table');
+
 
 // connection to database
 const db = mysql.createConnection(
@@ -9,10 +10,10 @@ const db = mysql.createConnection(
         host: 'localhost',
         port: 3306,
         user: 'root',
-        password: 'password',
-        database: 'employee_db'
+        password: '@dolPhin102!',
+        database: 'emp_db_tracker'
     },
-    console.log('connected to database')
+    console.log('connected to employee database')
 );
 
 // opens company tracker and prompts user with options 
@@ -72,7 +73,7 @@ const tracker = () => {
 // view departments
 const viewDepartments = () => {
     db.query('SELECT * FROM departments', async function (err, results) {
-    const table = await cTable.getTable(results);
+    const table = cTable.getTable(results);
     console.log(table);
     tracker();
 });
@@ -82,7 +83,7 @@ const viewDepartments = () => {
 // view roles
 const viewRoles = () => {
 db.query('SELECT * FROM roles LEFT JOIN departments ON roles.department_id = departments.id', async function (err, results) {
-    const table = await cTable.getTable(results);
+    const table = cTable.getTable(results);
     console.log(table);
     tracker();
 });   
@@ -95,7 +96,7 @@ db.query("SELECT employees.id, employees.first_name, employees.last_name, roles.
         console.log(err);
         tracker();
     } else {
-        const table = await cTable.getTable(results);
+        const table = cTable.getTable(results);
         console.log(table);
         tracker();
     }
@@ -112,7 +113,7 @@ const addDepartment = () => {
         }
     ]).then((data) => {
         db.query('INSERT INTO departments(department_name) VALUES (?)', data.newDepartment, async function (err, results) {
-            await console.log(`${data.newDepartment} added to departments!`);
+            console.log(`${data.newDepartment} added to departments!`);
             tracker();
         } );
     });
@@ -138,7 +139,7 @@ const addRole = () => {
         }
     ]).then((data) => {
         db.query('INSERT INTO roles(title, salary, department_id) VALUES (?,?,?)', [data.newRole, data.salary, data.department], async function (err, results) {
-            await console.log(`${data.newRole} added to roles!`);
+            console.log(`${data.newRole} added to roles!`);
             tracker();
         } );
     });
@@ -169,7 +170,7 @@ const addEmployee = () => {
         }
     ]).then((data) => {
         db.query('INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', [data.firstName, data.lastName, data.role, data.manager], async function (err, results) {
-            await console.log(`${data.firstName} added to roles!`);
+            console.log(`${data.firstName} added to roles!`);
             tracker();
         } );
     });
@@ -196,7 +197,7 @@ const deleteDepartment = () => {
             if (err){
                 console.log(err);
             } else {
-                await console.log('Successfully deleted department');
+                console.log('Successfully deleted department');
                 tracker();
             }
         })
@@ -239,7 +240,7 @@ const deleteRole = () => {
             if (err){
                 console.log(err);
             } else {
-                await console.log('Successfully deleted role');
+                console.log('Successfully deleted role');
                 tracker();
             }
         })
