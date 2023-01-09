@@ -20,7 +20,7 @@ VALUES  ("Brycen", "Towers", 1, null),
         ("Jefferson", "Taylor", 3, null),
         ("Tiara", "Green", 4, 3),
         ("Kenzie", "Razi" 5, null),
-        ("Logan", "Ruiz", 6,5),
+        ("Logan", "Ruiz", 6, 5),
         ("Charly", "Asuma", 7, null),
         ("Ricardo", "Ramos", 8, 7),
         ("Cyrus", "Mc Leod", 8, 7);
